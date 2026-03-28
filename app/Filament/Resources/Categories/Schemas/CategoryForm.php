@@ -14,7 +14,7 @@ class CategoryForm
         return $schema
             ->components([
                 //
-                Textinput::make('nama')
+                Textinput::make('name')
                 ->required(),
 
                 TextInput::make('slug')

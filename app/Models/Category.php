@@ -8,7 +8,12 @@ class Category extends Model
 {
     //
     protected $fillable = [
-        'nama',
+        'name',
         'slug'
     ];
+
+    // public function posts()
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
 }
