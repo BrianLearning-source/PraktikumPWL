@@ -31,10 +31,17 @@ class PostForm
             ->schema([
                 //grouping fiels into 2 colums
                 Group::make([
-                TextInput::make("title"),
-                Textinput::make("slug"),
+                TextInput::make("title")
+                ->rules('required | min:5'),
+                Textinput::make("slug")
+                ->rules('required | min:3')
+                ->unique(),
                 Select::make("category_id")
                 ->relationship("category", "name")
+                ->required()
+                ->validationMessages([
+                    'required'=>'Please, choose the right category!'
+                ])
                 ->preload()
                 ->searchable(),
                 ColorPicker::make("color"),
@@ -51,8 +58,13 @@ class PostForm
                 ->icon('heroicon-o-photo')
                 ->schema([
                     FileUpload::make("image")
+                    ->required()
+                    ->validationMessages([
+                        'required'=>'Please, upload an image!'
+                    ])
                     ->disk("public")
                     ->directory("posts"),
+                
                 ]),
             
 
@@ -66,6 +78,62 @@ class PostForm
                 ]),
                 ])->columnSpan(1),
             ])->columns(3);
+
+
+
+// ->components([
+//             //section 1 - post details
+//             Section::make("Post Details")
+//             -> description("Fill in the details of the post")
+//             // -> icon(Heroicon::Rockerlaunch)
+//             -> icon('heroicon-o-document-text')
+//             ->schema([
+//                 //grouping fiels into 2 colums
+//                 Group::make([
+//                 TextInput::make("title")
+//                 ->rules('required | min:3 | max:100'),
+//                 Textinput::make("slug")
+//                 ->rules('required')
+//                 ->unique()
+//                 ->validationMessages([
+//                     'unique'=>'Slug must be unique.',
+//                 ]),
+//                 Select::make("category_id")
+//                 ->relationship("category", "name")
+//                 ->required()
+//                 ->preload()
+//                 ->searchable(),
+//                 ColorPicker::make("color"),
+//                 ])->columns(2),
+                
+//                 MarkdownEditor::make("content"),
+//             ])->columnSpan(2),
+
+//             //Grouping fields into 2 columns
+//             Group::make([
+
+//                 // section 2 - Image
+//                 Section::make("Image upload")
+//                 ->icon('heroicon-o-photo')
+//                 ->schema([
+//                     FileUpload::make("image")
+//                     ->required()
+//                     ->disk("public")
+//                     ->directory("posts"),
+                
+//                 ]),
+            
+
+//             //section 3 - meta
+//                 Section::make("Meta Information")
+//                 ->icon('heroicon-o-archive-box')
+//                 ->schema([
+//                     TagsInput::make("tags"),
+//                     Checkbox::make("published"),
+//                     DateTimePicker::make("published_at"),
+//                 ]),
+//                 ])->columnSpan(1),
+//             ])->columns(3);
 
 
         
