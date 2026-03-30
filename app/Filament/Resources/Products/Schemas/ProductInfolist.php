@@ -29,7 +29,7 @@ class ProductInfolist
                         TextEntry::make('sku')
                             ->label('Product SKU')
                             ->badge()
-                            ->color('success'),
+                            ->color('danger'),
 
                         TextEntry::make('description')
                             ->label('Product Description'),
@@ -41,16 +41,19 @@ class ProductInfolist
                     ])
                 ->columnSpanFull(),
 
-                Section::make('Product Price and')
+                Section::make('Product Price and Stock')
                     ->description('')
                     ->schema([
                         TextEntry::make('price')
                             ->label('Product Price')
                             ->weight('bold')
                             ->color('primary')
-                            ->icon('heroicon-s-currency-dollar'),
+                            ->icon('heroicon-s-currency-dollar')
+                            ->formatStateUsing(fn ($state) => 'Rp ' . number_format((float) $state, 0, ',', '.')),
+                            
                         TextEntry::make('stock')
                             ->label('Product Stock')
+                            ->icon('heroicon-o-truck'),
                     ])
                 ->columnSpanFull(),
 
@@ -64,11 +67,14 @@ class ProductInfolist
                                 ->label('Product Price')
                                 ->weight('bold')
                                 ->color('primary')
-                                ->icon('heroicon-s-currency-dollar'),
+                                ->icon('heroicon-s-currency-dollar')
+                                ->formatStateUsing(fn ($state) => 'Rp ' . number_format((float) $state, 0, ',', '.')),
+
                             TextEntry::make('stock')
                                 ->label('Product Stock')
                                 ->weight('bold')
-                                ->color('primary'),
+                                ->color('primary')
+                                ->icon('heroicon-o-truck'),
                             IconEntry::make('is_active')
                                 ->label('Is Active?')
                                 ->boolean(),
