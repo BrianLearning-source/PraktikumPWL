@@ -18,18 +18,28 @@ class PostsTable
         return $table
             ->columns([
                 //
-                TextColumn::make('title'),
-                TextColumn::make('slug'),
-                TextColumn::make('category.name'),
-                ColorColumn::make('color'),
+                TextColumn::make('title')
+                    ->sortable(),
+                TextColumn::make('slug')
+                    ->sortable(),
+                TextColumn::make('category.name')
+                    ->sortable(),
+                ColorColumn::make('color')
+                    ->sortable(),
                 ImageColumn::make('image')
-                ->disk('public'),
+                ->disk('public')
+                ->sortable(),
+                TextColumn::make('created_at')
+                ->label('Created At')
+                ->dateTime()
+                ->sortable(),
                 IconColumn::make('published')
                 ->boolean()
                 ->trueIcon('heroicon-o-check-circle')
                 ->falseIcon('heroicon-o-x-circle')
-                ->label('Published'),
-            ])
+                ->label('Published')
+                ->sortable(),
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
