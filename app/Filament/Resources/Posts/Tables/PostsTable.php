@@ -20,33 +20,47 @@ class PostsTable
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
                 TextColumn::make('title')
                     ->sortable()
+                    ->toggleable()
                     ->searchable(),
                 TextColumn::make('slug')
                     ->sortable()
+                    ->toggleable()
                     ->searchable(),
                 TextColumn::make('category.name')
                     ->sortable()
+                    ->toggleable()
                     ->searchable(),
                 ColorColumn::make('color')
+                    ->toggleable()
                     ->sortable(),
                 ImageColumn::make('image')
-                ->disk('public')
-                ->sortable(),
+                    ->disk('public')
+                    ->toggleable()
+                    ->sortable(),
                 TextColumn::make('created_at')
-                ->label('Created At')
-                ->dateTime()
-                ->sortable()
-                ->searchable(),
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
+                TextColumn::make('tags')
+                    ->label('Tags')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
                 IconColumn::make('published')
-                ->boolean()
-                ->trueIcon('heroicon-o-check-circle')
-                ->falseIcon('heroicon-o-x-circle')
-                ->label('Published')
-                ->sortable(),
-            ])->defaultSort('created_at', 'desc')
+                    ->boolean()
+                    ->toggleable()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->label('Published')
+                    ->sortable(),
+            ])->defaultSort('created_at', 'asc')
             ->filters([
                 Filter::make('created_at')
                     ->label('Creation Date')
