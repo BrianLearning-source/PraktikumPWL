@@ -15,6 +15,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Schemas\Components\Section;
 use Filament\Support\Icons\Heroicon;
 use Filament\Schemas\Components\Group;
+use App\Models\Category;
 
 class PostForm
 {
@@ -35,15 +36,20 @@ class PostForm
                 ->rules('required | min:5'),
                 Textinput::make("slug")
                 ->rules('required | min:3')
-                ->unique(),
+                ->unique()
+                ->validationMessages([
+                    "unique" => "Slug must be unique"
+                ]),
                 Select::make("category_id")
                 ->relationship("category", "name")
+                ->options(Category::all()->pluck("name", "id"))
                 ->required()
-                ->validationMessages([
-                    'required'=>'Please, choose the right category!'
-                ])
-                ->preload()
                 ->searchable(),
+
+                // ->validationMessages([
+                //     'required'=>'Please, choose the right category!'
+                // ])
+                // ->preload()
                 ColorPicker::make("color"),
                 ])->columns(2),
                 
