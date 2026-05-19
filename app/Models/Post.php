@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
     //
+
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'slug',
@@ -14,13 +18,11 @@ class Post extends Model
         'color',
         'image',
         'body',
-        'tags',
         'published',
         'published_at',
 ];
 
 protected $casts = [
-    'tags' => 'array',
     'published' => 'boolean',
     'published_at' => 'date',
 ];
@@ -30,5 +32,9 @@ protected $casts = [
         return $this->belongsTo(Category::class);
     }
 
-    
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'post_tag');
+    }
+
 }

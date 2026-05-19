@@ -53,7 +53,7 @@ class PostsTable
                     ->sortable()
                     ->toggleable()
                     ->searchable(),
-                TextColumn::make('tags')
+                TextColumn::make('tags.name')
                     ->label('Tags')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),

@@ -78,7 +78,11 @@ class PostForm
                 Section::make("Meta Information")
                 ->icon('heroicon-o-archive-box')
                 ->schema([
-                    TagsInput::make("tags"),
+                    // TagsInput::make("tags"),
+                    Select::make("tags")
+                        ->relationship("tags", "name")
+                        ->multiple()
+                        ->preload(),
                     Checkbox::make("published"),
                     DateTimePicker::make("published_at"),
                 ]),
